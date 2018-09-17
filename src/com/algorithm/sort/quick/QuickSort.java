@@ -6,20 +6,42 @@ public class QuickSort {
 	}
 
 	public static void main(String[] args) {
-		int data[] = new int[] { 15, 9, 2, 56, 23, 1, 10, 5, 2, 3, 1, 0, 99, -1 };
-		System.out.println("Array length=" + data.length);
-		int start = 0;
-		int end = data.length-1;
-		int mid = start + end / 2;
-		System.out.println("mid=" + mid);
-		sortRecursive(data, start, mid);
-		sortRecursive(data, mid + 1, end);
+		int a[] = new int[] { -1, 22, 8, 77, 4, 10, 80, 30, 90, 40, 50, 70 };
+		quickSort(a, 0, a.length - 1);
+		for (int ele : a) {
+			System.out.println(ele);
+		}
 	}
 
-	private static void sortRecursive(int[] data, int start, int end) {
-		if (start >= end) {
-			return;
+	static void quickSort(int[] a, int low, int high) {
+		if (low < high) {
+			int pivot = partition(a, low, high);
+			quickSort(a, low, pivot - 1);
+			quickSort(a, pivot + 1, high);
 		}
-		sortRecursive(data, start, start + end / 2);
 	}
+
+	private static int partition(int[] a, int low, int high) {
+		int pivot = a[high];
+		int i = low - 1;
+
+		for (int j = low; j < high; j++) {
+			if (a[j] <= pivot) {
+				i++;
+				if (!(i == j)) {
+					System.out.println((i == j) + ", i=" + a[i] + " j=" + a[j]);
+					int temp = a[i];
+					a[i] = a[j];
+					a[j] = temp;
+				}
+			}
+		}
+		// what is next position for Pivot?? find out??
+		int temp = a[i + 1];
+		a[i + 1] = a[high];
+		a[high] = temp;
+
+		return i + 1;
+	}
+
 }
